@@ -1,0 +1,17 @@
+keytool -genkey -alias selfsigned_localhost_sslserver -keyalg RSA -keysize 2048 -validity 700 -keypass changeit -storepass changeit -keystore ssl-server.jks
+
+keytool -list -keystore ssl-server.jks -storepass changeit
+
+keytool -list -rfc -keystore ssl-server.jks -storepass changeit
+
+
+keytool -importcert -file yes_bank.crt -alias texasbank -keystore ssl-server.jks
+
+keytool -delete  -keystore ssl-server.jks
+
+keytool -alias www.texasbank.com -v -importkeystore -srckeystore ssl-server.jks -destkeystore D:\santosh-YES\certificates\santosh\selfsigned.p12 -deststoretype PKCS12
+
+
+keytool -importcert -trustcacerts -keystore C:\keystore.p12 -storetype pkcs12 -alias confluent.yb -file C:\Confluent.crt
+
+keytool -v -importkeystore -srckeystore server.p12 -srcstoretype PKCS12 -destkeystore ssl-server.jks -deststoretype JKS
